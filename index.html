@@ -166,6 +166,7 @@
 	       		clearInterval(timer);
 	       		// Allow the dom to render before the alert pops up
 	       		setTimeout(() => { alert("Times up!") }, 10);
+	       		document.activeElement.blur();
 						for (let number = 1; number <= 12; number++) {
   						document.getElementById(`category${number}`).disabled = true;
 						}
