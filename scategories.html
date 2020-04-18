@@ -1,0 +1,240 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Scategories</title>
+  <meta name="description" content="Scategories">
+  <meta name="author" content="Tom Gates">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container-sm pt-3 pb-3">
+		<header>
+			<h1 class="text-center">Scategories</h1>
+		</header>
+		<main class="row">
+			<section class="col">
+				<form>
+					<div class="card">
+						<header class="card-header">
+							<div class="form-group">
+								<label for="lists">Select a category list</label>
+								<select id="lists" name="lists" required style="width: 100%;" class="form-control">
+								</select>
+							</div>
+							<div class="btn-group w-100">
+								<button id="startGame" type="button" class="btn btn-success">
+									Start round
+								</button>
+								<button id="resetGame" type="button" disabled class="btn btn-outline-danger">
+									Reset round
+								</button>
+							</div>
+							<h2 id="timer" class="text-center pt-3">3:00</h2>
+						</header>
+
+
+  					<div class="card-body">
+							<div class="form-group">
+								<label for="category1"></label>
+								<input type="text" id="category1" name="category1" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category2"></label>
+								<input type="text" id="category2" name="category2" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category3"></label>
+								<input type="text" id="category3" name="category3" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category4"></label>
+								<input type="text" id="category4" name="category4" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category5"></label>
+								<input type="text" id="category5" name="category5" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category6"></label>
+								<input type="text" id="category6" name="category6" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category7"></label>
+								<input type="text" id="category7" name="category7" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category8"></label>
+								<input type="text" id="category8" name="category8" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category9"></label>
+								<input type="text" id="category9" name="category9" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category10"></label>
+								<input type="text" id="category10" name="category10" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category11"></label>
+								<input type="text" id="category11" name="category11" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label for="category12"></label>
+								<input type="text" id="category12" name="category12" class="form-control"/>
+							</div>
+						</div>
+
+						<footer class="card-footer">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<button type="button" id="decrementScore" class="btn btn-outline-secondary">-</button>
+							  </div>
+							  <input type="number" min="0" step="1" id="score" value="0"/>
+							  <div class="input-group-append">
+									<button type="button" id="incrementScore" class="btn btn-outline-secondary">+</button>
+								</div>
+							</div>
+						</footer>
+					</div>
+				</form>
+			</section>
+		</main>
+	</div>
+
+	<script type="text/javascript">
+		const DEFAULT_GAME_SECONDS = 10;//180;
+		const LISTS = [
+			["A boy’s name", "A river", "An animal", "Things that are cold", "Insects", "TV Shows", "Things that grow", "Fruits", "Things that are black", "School subjects", "Movie titles", "Musical Instruments" ],
+			["Authors", "Bodies of water", "A bird", "Countries", "Cartoon characters", "Holidays", "Things that are square", "In the NWT (Northwest Territories, Canada)", "Clothing", "A relative", "Games", "Sports Stars" ],
+			["School supplies", "Things that are hot", "Heroes", "A girl’s name", "Fears", "TV Stars", "Colors", "A fish", "Fruits", "Provinces or States", "Sports equipment", "Tools" ],
+			["Breakfast foods", "Gifts", "Flowers", "Ice cream flavors", "A drink", "Toys", "Cities", "Things in the kitchen", "Ocean things", "Nicknames", "Hobbies", "Parts of the body" ],
+			["Sandwiches", "Items in a catalog", "World leaders/Poloticians", "School subjects", "Excuses for being late", "Ice cream flavors", "Things that jump/bounce", "Television stars", "Things in a park", "Foriegn cities", "Stones/Gems", "Musical instruments" ],
+			["Nicknames", "Things in the sky", "Pizza toppings", "Colleges/Universities", "Fish", "Countries", "Things that have spots", "Historical Figures", "Something you’re afraid oF", "Terms of endearment", "Items in this room", "Drugs that are abused" ],
+			["Fictional characters", "Menu items", "Magazines", "Capitals", "Kinds of candy", "Items you save up to buy", "Footware", "Something you keep hidden", "Items in a suitcase", "Things with tails", "Sports equiptment", "Crimes" ],
+			["Things that are sticky", "Awards/ceremonies", "Cars", "Spices/Herbs", "Bad habits", "Cosmetics/Toiletries", "Celebrities", "Cooking utensils", "Reptiles/Amphibians", "Parks", "Leisure activities", "Things you’re allergic to" ],
+			["Restaurants", "Notorious people", "Fruits", "Things in a medicine cabinet", "Toys", "Household chores", "Bodies of water", "Authors", "Halloween costumes", "Weapons", "Things that are round", "Words associated with exercise" ],
+			["Sports", "Song titles", "Parts of the body", "Ethnic foods", "Things you shout", "Birds", "A girl’s name", "Ways to get from here to there", "Items in a kitchen", "Villains", "Flowers", "Things you replace" ],
+			["Baby foods", "Famous duos and trios", "Things found in a desk", "Vacation spots", "Diseases", "Words associated with money", "Items in a vending machine", "Movie Titles", "Games", "Things you wear", "Beers", "Things at a circus" ],
+			["Vegetables", "States", "Things you throw away", "Occupations", "Appliances", "Cartoon characters", "Types of drinks", "Musical groups", "Store names", "Things at a football game", "Trees", "Personality traits" ],
+			["Video games", "Electronic gadgets", "Board games", "Things that use a remote", "Card games", "Internet lingo", "Offensive words", "Wireless things", "Computer parts", "Software", "Websites", "Game terms" ],
+			["Things in a grocery store", "Reasons to quit your job", "Things that have stripes", "Tourist attractions", "Diet foods", "Things found in a hospital", "Food/Drink that is green", "Weekend Activities", "Acronyms", "Seafood", "Christmas songs", "Words ending in “-n”" ],
+			["Words with double letters", "Children’s books", "Things found at a bar", "Sports played outdoors", "Names used in songs", "Foods you eat raw", "Places in Europe", "Olympic events", "Things you see at the zoo", "Math terms", "Animals in books or movies", "Things to do at a party" ],
+			["Kinds of soup", "Things found in New York", "Things you get tickets for", "Things you do at work", "Foreign words used in English", "Things you shouldn’t touch", "Spicy foods", "Things at a carnival", "Things you make", "Places to hangout", "Animal noises", "Computer programs" ],
+			["Honeymoon spots", "Things you buy for kids", "Things that can kill you", "Reasons to take out a loan", "Words associated with winter", "Things to do on a date", "Historic events", "Things you store items in", "Things you do everyday", "Things you get in the mail", "Things you save up to buy", "Things you sit/on" ],
+			["Reasons to make a phone call", "Types of weather", "Titles people can have", "Things that have buttons", "Items you take on a road trip", "Things that have wheels", "Reasons to call 911", "Things that make you smile", "Ways to kill time", "Things that can get you fired", "Hobbies", "Holiday Activities" ],
+		];
+
+		window.addEventListener('load', () => {
+			let timer = null;
+			const timerDisplay = document.getElementById('timer');
+
+			const updateClock = (seconds) => {
+				displayMinutes = Math.floor(seconds / 60);
+	    	displaySeconds = ("0" + (seconds % 60)).slice(-2);
+	      timerDisplay.innerHTML = `${displayMinutes}:${displaySeconds}`;
+			}
+
+			// Starts the game:
+			// - disable start button
+			// - disable list selection
+			// - starts timer
+			// - when timer elapses:
+			//   - clears timers
+			// 	 - disables inputs
+			// - enables reset button
+			document.getElementById('startGame').addEventListener('click', (event) => {
+				document.getElementById('startGame').disabled = true;
+				document.getElementById('lists').disabled = true;
+
+				for (let index = 0; index <= 10; index++) {
+					const input = document.getElementById(`category${index + 1}`)
+					input.value = '';
+					if(index == 0) { input.focus(); }
+				}
+
+
+
+				let seconds = DEFAULT_GAME_SECONDS;
+				timer = setInterval(() => {
+		    	seconds--;
+		    	updateClock(seconds);
+	       	if (seconds == 0) {
+	       		clearInterval(timer);
+	       		// Allow the dom to render before the alert pops up
+	       		setTimeout(() => { alert("Times up!") }, 10);
+						for (let index = 0; index <= 10; index++) {
+  						document.getElementById(`category${index + 1}`).disabled = true;
+						}
+	       	}
+		    }, 1000);
+
+				document.getElementById('resetGame').disabled = false;
+			});
+
+			// Resets the game to be playable:
+			// - disable reset button
+			// - enable list selection
+			// - reset clock and timer
+			// - set inputs to enabled
+			// - clears inputs
+			// - enables start button
+			// - enables list selection
+			document.getElementById('resetGame').addEventListener('click', (event) => {
+				document.getElementById('resetGame').disabled = true;
+				if(timer) clearInterval(timer);
+				updateClock(DEFAULT_GAME_SECONDS);
+				for (let index = 0; index <= 10; index++) {
+					const input = document.getElementById(`category${index + 1}`)
+					input.disabled = false;
+					input.value = '';
+				}
+				document.getElementById('startGame').disabled = false;
+				document.getElementById('lists').disabled = false;
+			});
+
+			document.getElementById('incrementScore').addEventListener('click', (event) => {
+				const scoreDisplay = document.getElementById('score');
+				let score = parseInt(scoreDisplay.value);
+				score++;
+				scoreDisplay.value = score;
+			});
+
+			document.getElementById('decrementScore').addEventListener('click', (event) => {
+				const scoreDisplay = document.getElementById('score');
+				let score = parseInt(scoreDisplay.value);
+				if(score > 0) score--;
+				scoreDisplay.value = score;
+			});
+
+			// Update the categories and lables based on the chosen list
+			document.getElementById('lists').addEventListener('change', (event) => {
+				LISTS[event.target.value].forEach((category, index) => {
+					const input = document.getElementById(`category${index + 1}`);
+					const label = input.labels[0];
+					label.innerHTML = category;
+					input.value = '';
+					input.disabled = false;
+				});
+			});
+
+			// Set up the game.
+			// - Set up the list of categories <select>.
+			// - Assign a default set of categories.
+			listSelector = document.getElementById('lists');
+		  LISTS.forEach((list, index) => {
+		  	const option = document.createElement("option");
+		  	option.value = index;
+		  	option.innerHTML = `List ${index + 1}`;
+		  	listSelector.appendChild(option);
+		  });
+		  listSelector.value = 0;
+		  listSelector.dispatchEvent(new Event('change'));
+		  updateClock(DEFAULT_GAME_SECONDS);
+		});
+	</script>
+</body>
+</html>
