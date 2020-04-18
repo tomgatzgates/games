@@ -40,51 +40,51 @@
   					<div class="card-body">
 							<div class="form-group">
 								<label for="category1"></label>
-								<input type="text" id="category1" name="category1" class="form-control"/>
+								<input type="text" id="category1"  disabledname="category1" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category2"></label>
-								<input type="text" id="category2" name="category2" class="form-control"/>
+								<input type="text" id="category2"  disabledname="category2" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category3"></label>
-								<input type="text" id="category3" name="category3" class="form-control"/>
+								<input type="text" id="category3"  disabledname="category3" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category4"></label>
-								<input type="text" id="category4" name="category4" class="form-control"/>
+								<input type="text" id="category4"  disabledname="category4" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category5"></label>
-								<input type="text" id="category5" name="category5" class="form-control"/>
+								<input type="text" id="category5"  disabledname="category5" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category6"></label>
-								<input type="text" id="category6" name="category6" class="form-control"/>
+								<input type="text" id="category6"  disabledname="category6" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category7"></label>
-								<input type="text" id="category7" name="category7" class="form-control"/>
+								<input type="text" id="category7"  disabledname="category7" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category8"></label>
-								<input type="text" id="category8" name="category8" class="form-control"/>
+								<input type="text" id="category8"  disabledname="category8" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category9"></label>
-								<input type="text" id="category9" name="category9" class="form-control"/>
+								<input type="text" id="category9"  disabledname="category9" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category10"></label>
-								<input type="text" id="category10" name="category10" class="form-control"/>
+								<input type="text" id="category10" disabled name="category10" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category11"></label>
-								<input type="text" id="category11" name="category11" class="form-control"/>
+								<input type="text" id="category11" disabled name="category11" class="form-control"/>
 							</div>
 							<div class="form-group">
 								<label for="category12"></label>
-								<input type="text" id="category12" name="category12" class="form-control"/>
+								<input type="text" id="category12" disabled name="category12" class="form-control"/>
 							</div>
 						</div>
 
@@ -150,10 +150,10 @@
 				document.getElementById('startGame').disabled = true;
 				document.getElementById('lists').disabled = true;
 
-				for (let index = 0; index <= 10; index++) {
-					const input = document.getElementById(`category${index + 1}`)
+				for (let number = 1; number <= 12; number++) {
+					const input = document.getElementById(`category${number}`)
 					input.value = '';
-					if(index == 0) { input.focus(); }
+					input.disabled = false;
 				}
 
 
@@ -166,12 +166,13 @@
 	       		clearInterval(timer);
 	       		// Allow the dom to render before the alert pops up
 	       		setTimeout(() => { alert("Times up!") }, 10);
-						for (let index = 0; index <= 10; index++) {
-  						document.getElementById(`category${index + 1}`).disabled = true;
+						for (let number = 1; number <= 12; number++) {
+  						document.getElementById(`category${number}`).disabled = true;
 						}
 	       	}
 		    }, 1000);
 
+				document.getElementById('category1').focus();
 				document.getElementById('resetGame').disabled = false;
 			});
 
@@ -187,9 +188,9 @@
 				document.getElementById('resetGame').disabled = true;
 				if(timer) clearInterval(timer);
 				updateClock(DEFAULT_GAME_SECONDS);
-				for (let index = 0; index <= 10; index++) {
-					const input = document.getElementById(`category${index + 1}`)
-					input.disabled = false;
+				for (let number = 1; number <= 12; number++) {
+					const input = document.getElementById(`category${number}`)
+					input.disabled = true;
 					input.value = '';
 				}
 				document.getElementById('startGame').disabled = false;
@@ -217,7 +218,7 @@
 					const label = input.labels[0];
 					label.innerHTML = category;
 					input.value = '';
-					input.disabled = false;
+					input.disabled = true;
 				});
 			});
 
